@@ -1,3 +1,26 @@
+/*.carousel {
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 24px;
+  width: 220px;
+}
+.carousel .slides {
+  display: flex;
+
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.carousel .item {
+  scroll-snap-align: start;
+}
+.carousel .item > img {
+  width: 220px;
+  height: auto;
+}
+
+
 .container {
   padding: 0 2rem;
 }
@@ -10,6 +33,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 1px dotted #aaa;
 }
 
 .footer {
@@ -114,3 +138,4 @@
     flex-direction: column;
   }
 }
+*/
