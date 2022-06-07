@@ -1,15 +1,21 @@
 import groq from 'groq';
 import client from '../../client';
 import { PortableText } from '@portabletext/react';
-
+import Head from 'next/head';
 const Page = ({ post }) => {
   const { name = '', content } = post;
 
   return (
-    <div className="mb-5 info">
-      <h1 className="text-3xl font-bold py-3">{name}</h1>
-      <PortableText value={content} />
-    </div>
+    <>
+      <Head>
+        <title>{name} - Christopher Beaumont</title>
+        <meta name="description" content="Contact the artist" />
+      </Head>
+      <div className="mb-5 info">
+        <h1 className="text-3xl font-bold py-3">{name}</h1>
+        <PortableText value={content} />
+      </div>
+    </>
   );
 };
 

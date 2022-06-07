@@ -5,7 +5,7 @@ import socialPic from '../../public/img/soc-insta-30.png';
 
 const Footer = () => {
   return (
-    <div className="bg-slate-700 text-white">
+    <div className="bg-slate-700 text-white mt-4">
       <div className="container mx-auto  md:max-w-5xl  md:flex md:flex-row text-sm">
         <div className="p-3 basis-1/4 hidden  lg:block">
           <Link href={'/'}>

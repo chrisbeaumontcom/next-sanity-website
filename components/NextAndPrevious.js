@@ -10,8 +10,8 @@ const NextAndPrevious = ({ current, list, url }) => {
       <div className="flex flex-row">
         <div className="text-left basis-1/2 px-5 py-2">
           <Link href={`/detail/${obj.previous}`}>
-            <a>
-              <span className="arrow">&laquo;</span> Prev
+            <a className="text-blue-600">
+              <span className="text-xl">&laquo;</span> Prev
             </a>
           </Link>
         </div>
@@ -23,8 +23,8 @@ const NextAndPrevious = ({ current, list, url }) => {
         </div> */}
         <div className="text-right basis-1/2 px-5 py-2">
           <Link href={`/detail/${obj.next}`}>
-            <a>
-              Next <span className="arrow">&raquo;</span>
+            <a className="text-blue-600">
+              Next <span className="text-xl">&raquo;</span>
             </a>
           </Link>
         </div>

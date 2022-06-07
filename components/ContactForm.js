@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Formik } from 'formik';
 import axios from 'axios';
 
-const contactApi = 'https://api.chrisbeaumont.com/api/contact.js'; //process.env.CONTACT_API;
+const contactApi = process.env.NEXT_PUBLIC_CONTACT_API;
 
 const ContactForm = () => {
   const [sendProcess, sendForm] = useState('');

@@ -1,6 +1,7 @@
 import groq from 'groq';
 import client from '../../client';
 import Link from 'next/link';
+import Head from 'next/head';
 import SanityImage from '../../components/SanityImage';
 import { useGalleryContext } from '../../context/gallery';
 import NextAndPrevious from '../../components/NextAndPrevious';
@@ -16,26 +17,34 @@ const Detail = ({ artwork }) => {
   } = artwork;
 
   const [currentGallery, setCurrentGallery] = useGalleryContext();
-  //console.log('slug', slug.current);
+
   return (
-    <div className="mb-5">
-      <h1 className="text-3xl font-bold py-3">{name}</h1>
-      <p>
-        {description}, {year}
-      </p>
-      {galleries.map((gallery, i) => (
-        <p key={i}>
-          Gallery:{' '}
-          <Link href={`/gallery/${gallery.slug.current}`}>{gallery.name}</Link>
+    <>
+      <Head>
+        <title>{name} - Christopher Beaumont</title>
+        <meta name="description" content="View this artwork" />
+      </Head>
+      <div className="mb-5">
+        <h1 className="text-3xl font-bold py-3">{name}</h1>
+        <p>
+          {description}, {year}
         </p>
-      ))}
-      <div className="max-w-3xl">
-        <SanityImage sanityimg={image} size={800} />
+        {galleries.map((gallery, i) => (
+          <p key={i}>
+            Gallery:{' '}
+            <Link href={`/gallery/${gallery.slug.current}`}>
+              {gallery.name}
+            </Link>
+          </p>
+        ))}
+        <div className="max-w-3xl">
+          <SanityImage sanityimg={image} size={800} />
+        </div>
+        {currentGallery.works && (
+          <NextAndPrevious current={slug.current} list={currentGallery.works} />
+        )}
       </div>
-      {currentGallery.works && (
-        <NextAndPrevious current={slug.current} list={currentGallery.works} />
-      )}
-    </div>
+    </>
   );
 };
 

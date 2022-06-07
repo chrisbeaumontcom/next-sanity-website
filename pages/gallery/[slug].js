@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import groq from 'groq';
 import client from '../../client';
+import Head from 'next/head';
 import Link from 'next/link';
 import SanityImage from '../../components/SanityImage';
 import { useGalleryContext } from '../../context/gallery';
@@ -22,32 +23,42 @@ const Gallery = ({ gallery }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className="container p-3 mb-5">
-      <div className="mb-3">
-        <h1 className="text-3xl font-bold py-3">{name}</h1>
-        <p>{description}</p>
-      </div>
-      <div className="md:grid md:grid-cols-3 gap-3">
-        {artworks.map((item, i) => (
-          <div key={i}>
-            <div className="">
-              <Link href={{ pathname: `/detail/${item.slug.current}` }}>
-                <a>
-                  <SanityImage sanityimg={item.image} size={380} />
-                </a>
-              </Link>
+    <>
+      <Head>
+        <title>{name} - Christopher Beaumont</title>
+        <meta
+          name="description"
+          content="View a list of artworks from this selection"
+        />
+      </Head>
+
+      <div className="container p-3 mb-5">
+        <div className="mb-3">
+          <h1 className="text-3xl font-bold py-3">{name}</h1>
+          <p>{description}</p>
+        </div>
+        <div className="md:grid md:grid-cols-3 gap-3">
+          {artworks.map((item, i) => (
+            <div key={i}>
+              <div className="">
+                <Link href={{ pathname: `/detail/${item.slug.current}` }}>
+                  <a>
+                    <SanityImage sanityimg={item.image} size={380} />
+                  </a>
+                </Link>
+              </div>
+              <div className="py-2 text-xs">
+                {item.name}
+                <br />
+                {item.description}
+                <br />
+                {item.year}
+              </div>
             </div>
-            <div className="py-2 text-xs">
-              {item.name}
-              <br />
-              {item.description}
-              <br />
-              {item.year}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

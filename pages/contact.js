@@ -1,10 +1,15 @@
 import ContactForm from '../components/ContactForm';
 import Image from 'next/image';
+import Head from 'next/head';
 import pic from '../public/img/serge_photo_300x305.jpg';
 
 export default function Page() {
   return (
     <div className="container p-3">
+      <Head>
+        <title>Contact - Christopher Beaumont</title>
+        <meta name="description" content="Contact the artist" />
+      </Head>
       <main>
         <div className="mb-5 mx-auto">
           <h2 className="text-2xl font-normal py-2">Contact</h2>
