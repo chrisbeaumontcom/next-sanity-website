@@ -37,7 +37,8 @@ const Footer = () => {
               <Link href="/info/privacy-policy">Privacy</Link>
             </li>
             <li>
-              Version: 3.0 <br />
+              Version: 3.0 June 2022
+              <br />
               Next JS / Sanity CMS / Vercel / GitHub <br />
             </li>
             <li>

@@ -12,24 +12,12 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 
 * {
   box-sizing: border-box;
 }
-
-.check-bg {
-  background-color: aqua;
-}
-
-a {
-  cursor: pointer;
-}
-
-/* .gallery-box {
-  width: 250px;
-  height: 200px;
-} */
 
 .info h2 {
   padding: 5px 0;

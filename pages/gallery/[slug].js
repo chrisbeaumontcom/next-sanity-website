@@ -1,22 +1,37 @@
+import { useEffect } from 'react';
 import groq from 'groq';
 import client from '../../client';
 import Link from 'next/link';
 import SanityImage from '../../components/SanityImage';
+import { useGalleryContext } from '../../context/gallery';
 
 const Gallery = ({ gallery }) => {
-  //const { name = '', description = '', artworks = [] } = gallery;
+  const { name = '', description = '', slug, artworks } = gallery;
 
+  const [currentGallery, setCurrentGallery] = useGalleryContext();
+
+  useEffect(() => {
+    const works = artworks.map((item) => {
+      return item.slug.current;
+    });
+    setCurrentGallery({
+      name,
+      slug: slug.current,
+      works,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="container p-3 mb-5">
       <div className="mb-3">
-        <h1 className="text-3xl font-bold py-3">{gallery.name}</h1>
-        <p>{gallery.description}</p>
+        <h1 className="text-3xl font-bold py-3">{name}</h1>
+        <p>{description}</p>
       </div>
       <div className="md:grid md:grid-cols-3 gap-3">
-        {gallery.artworks.map((item, i) => (
+        {artworks.map((item, i) => (
           <div key={i}>
             <div className="">
-              <Link href={`/detail/${item.slug.current}`}>
+              <Link href={{ pathname: `/detail/${item.slug.current}` }}>
                 <a>
                   <SanityImage sanityimg={item.image} size={380} />
                 </a>
@@ -50,6 +65,7 @@ export async function getStaticPaths() {
 const query = groq`*[_type == "gallery" && slug.current == $slug][0]{
   _id,
   name,
+  slug,
   description,
   artworks[]->{name, 
     slug,

@@ -17,7 +17,7 @@ const ptComponents = {
       }
       return (
         <Link rel="internal" href={value.href}>
-          {children[0]}
+          <a className="text-blue-600">{children[0]}</a>
         </Link>
       );
     },
@@ -29,7 +29,7 @@ const ptComponents = {
         ? 'noreferrer noopener'
         : undefined;
       return (
-        <a href={value.href} rel={rel}>
+        <a href={value.href} rel={rel} className="text-blue-600">
           {children}
         </a>
       );
