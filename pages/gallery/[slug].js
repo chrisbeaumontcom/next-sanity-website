@@ -25,7 +25,9 @@ const Gallery = ({ gallery }) => {
   return (
     <>
       <Head>
-        <title>{name} - Christopher Beaumont</title>
+        <title>
+          {name} - {process.env.NEXT_PUBLIC_SITE_NAME}
+        </title>
         <meta
           name="description"
           content="View a list of artworks from this selection"

@@ -8,7 +8,9 @@ const Page = ({ post }) => {
   return (
     <>
       <Head>
-        <title>{name} - Christopher Beaumont</title>
+        <title>
+          {name} - {process.env.NEXT_PUBLIC_SITE_NAME}
+        </title>
         <meta name="description" content="Contact the artist" />
       </Head>
       <div className="mb-5 info">

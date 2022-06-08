@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <div className="container p-3">
       <Head>
-        <title>Contact - Christopher Beaumont</title>
+        <title>Contact - {process.env.NEXT_PUBLIC_SITE_NAME}</title>
         <meta name="description" content="Contact the artist" />
       </Head>
       <main>

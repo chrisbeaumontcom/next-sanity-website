@@ -21,7 +21,9 @@ const Detail = ({ artwork }) => {
   return (
     <>
       <Head>
-        <title>{name} - Christopher Beaumont</title>
+        <title>
+          {name} {year} - {process.env.NEXT_PUBLIC_SITE_NAME}
+        </title>
         <meta name="description" content="View this artwork" />
       </Head>
       <div className="mb-5">
