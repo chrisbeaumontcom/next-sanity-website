@@ -10,6 +10,10 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {
     const handleRouteChange = (url) => {
+      if (process && process.env.NODE_ENV === 'development') {
+        console.log('Dev GA:', url);
+        return;
+      }
       gtag.pageview(url);
     };
     router.events.on('routeChangeComplete', handleRouteChange);

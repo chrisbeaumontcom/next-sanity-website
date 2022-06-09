@@ -18,6 +18,7 @@ export default function Layout({ children }) {
       />
       <NavBar />
       <div className="container mx-auto  md:max-w-5xl">{children}</div>
+      <div className="spacer"></div>
       <Footer />
     </div>
   );
