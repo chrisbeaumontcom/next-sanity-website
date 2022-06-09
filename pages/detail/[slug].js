@@ -26,19 +26,26 @@ const Detail = ({ artwork }) => {
         </title>
         <meta name="description" content="View this artwork" />
       </Head>
-      <div className="mb-5">
+      <div className="mb-5 p-2">
         <h1 className="text-3xl font-bold py-3">{name}</h1>
         <p>
           {description}, {year}
         </p>
-        {galleries.map((gallery, i) => (
-          <p key={i}>
-            Gallery:{' '}
-            <Link href={`/gallery/${gallery.slug.current}`}>
-              {gallery.name}
+        {currentGallery.works && (
+          <p>
+            <Link href={`/gallery/${currentGallery.slug}`}>
+              <a className="text-blue-600">{currentGallery.name}</a>
             </Link>
           </p>
-        ))}
+        )}
+        {!currentGallery.works &&
+          galleries.map((gallery, i) => (
+            <p key={i}>
+              <Link href={`/gallery/${gallery.slug.current}`}>
+                <a className="text-blue-600">{gallery.name}</a>
+              </Link>
+            </p>
+          ))}
         <div className="max-w-3xl">
           <SanityImage sanityimg={image} size={800} />
         </div>

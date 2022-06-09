@@ -15,6 +15,7 @@ const Gallery = ({ gallery }) => {
     const works = artworks.map((item) => {
       return item.slug.current;
     });
+
     setCurrentGallery({
       name,
       slug: slug.current,
@@ -22,6 +23,7 @@ const Gallery = ({ gallery }) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <>
       <Head>

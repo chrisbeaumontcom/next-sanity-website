@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 export default function NavBar() {
   const links = [
@@ -12,10 +12,11 @@ export default function NavBar() {
     { title: 'Curriculum Vitae', url: '/info/cv' },
     { title: 'Contact', url: '/contact' },
   ];
+
   const classname = 'nav-open';
-  const burger = useRef();
   const [navState, setNavState] = useState('');
   const [burgerCheckboxState, setBurgerCheckboxState] = useState(false);
+
   function handleNav(e) {
     e.preventDefault();
     if (navState === '') {
@@ -52,9 +53,7 @@ export default function NavBar() {
           <div className="hamburger-box">
             <input
               type="checkbox"
-              id="checkbox3"
-              ref={burger}
-              className="burger-checkbox visuallyHidden"
+              className="burger-checkbox visually-hidden"
               defaultChecked={burgerCheckboxState}
             />
             <label onClick={handleNav}>
@@ -68,7 +67,7 @@ export default function NavBar() {
           </div>
         </div>
       </div>
-      <style jsx scoped>{`
+      <style jsx>{`
         .hamburger-box {
           display: none;
         }
@@ -83,17 +82,16 @@ export default function NavBar() {
           .topnav .hamburger-box {
             display: block;
             position: absolute;
-            right: 0;
+            right: 8px;
             top: 0;
           }
           .topnav.nav-open a {
-            float: none;
             display: block;
             text-align: left;
           }
         }
 
-        .visuallyHidden {
+        .visually-hidden {
           position: absolute;
           overflow: hidden;
           clip: rect(0 0 0 0);
