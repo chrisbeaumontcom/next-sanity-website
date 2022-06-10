@@ -82,7 +82,6 @@ export default function NavBar({ currentPath }) {
         a.active {
           color: red;
         }
-
         @media screen and (max-width: 768px) {
           .topnav {
             position: relative;
@@ -101,7 +100,6 @@ export default function NavBar({ currentPath }) {
             text-align: left;
           }
         }
-
         .visually-hidden {
           position: absolute;
           overflow: hidden;
