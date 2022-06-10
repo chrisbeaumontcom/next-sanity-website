@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-export default function NavBar() {
+export default function NavBar({ currentPath }) {
   const links = [
     { title: 'Selected Paintings', url: '/gallery/selected-paintings' },
     {
@@ -33,20 +33,25 @@ export default function NavBar() {
       setNavState('');
     }
   }
+  function linkActive(path, url) {
+    return path === url ? 'active' : '';
+  }
 
   return (
     <nav className="bg-slate-600 p-2">
       <div className="m-auto  md:max-w-5xl flex flex-row justify-between">
         <div onClick={closeAllNav}>
           <Link href="/">
-            <a className="text-white">Home</a>
+            <a>Home</a>
           </Link>
         </div>
         <div className={`md:flex md:flex-row topnav ${navState}`}>
           {links.map((link, i) => (
             <div key={i} className="px-3" onClick={closeAllNav}>
               <Link href={link.url}>
-                <a className="text-white">{link.title}</a>
+                <a className={linkActive(currentPath, link.url)}>
+                  {link.title}
+                </a>
               </Link>
             </div>
           ))}
@@ -70,6 +75,12 @@ export default function NavBar() {
       <style jsx>{`
         .hamburger-box {
           display: none;
+        }
+        a {
+          color: white;
+        }
+        a.active {
+          color: red;
         }
 
         @media screen and (max-width: 768px) {

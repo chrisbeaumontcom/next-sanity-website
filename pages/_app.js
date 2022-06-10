@@ -1,6 +1,6 @@
 import '../styles/globals.css';
 import { GalleryProvider } from '../context/gallery';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../components/layout/Layout';
 import * as gtag from '../gtag';
@@ -8,8 +8,10 @@ import Script from 'next/script';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const [currentPath, setCurrentPath] = useState('/');
   useEffect(() => {
     const handleRouteChange = (url) => {
+      setCurrentPath(url);
       if (process && process.env.NODE_ENV === 'development') {
         console.log('Dev GA:', url);
         return;
@@ -43,7 +45,7 @@ function MyApp({ Component, pageProps }) {
           `,
         }}
       />
-      <Layout>
+      <Layout currentPath={currentPath}>
         <GalleryProvider>
           <Component {...pageProps} />
         </GalleryProvider>

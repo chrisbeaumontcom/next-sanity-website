@@ -36,7 +36,7 @@ const Gallery = ({ gallery }) => {
         />
       </Head>
 
-      <div className="container p-3 mb-5">
+      <div className="container mb-5 p-2">
         <div className="mb-3">
           <h1 className="text-3xl font-bold py-3">{name}</h1>
           <p>{description}</p>

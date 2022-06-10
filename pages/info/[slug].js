@@ -13,7 +13,7 @@ const Page = ({ post }) => {
         </title>
         <meta name="description" content="Contact the artist" />
       </Head>
-      <div className="mb-5 info">
+      <div className="info mb-5 p-2">
         <h1 className="text-3xl font-bold py-3">{name}</h1>
         <PortableText value={content} />
       </div>
