@@ -3,13 +3,13 @@ import Link from 'next/link';
 //import mag from '../public/img/mag.png';
 
 const NextAndPrevious = ({ current, list, url }) => {
-  const obj = itemNav(current, list);
+  const { previous, next } = itemNav(current, list);
 
   return (
     <div className="md:max-w-3xl">
       <div className="flex flex-row">
         <div className="text-left basis-1/2 px-5 py-2">
-          <Link href={`/detail/${obj.previous}`}>
+          <Link href={`/detail/${previous}`}>
             <a className="btn btn-blue">
               <span>&laquo;</span> Prev
             </a>
@@ -22,24 +22,13 @@ const NextAndPrevious = ({ current, list, url }) => {
           </a>
         </div> */}
         <div className="text-right basis-1/2 px-5 py-2">
-          <Link href={`/detail/${obj.next}`}>
+          <Link href={`/detail/${next}`}>
             <a className="btn btn-blue">
               Next <span>&raquo;</span>
             </a>
           </Link>
         </div>
       </div>
-      {/* <style jsx>{`
-        .btn {
-          @apply font-bold py-2 px-4 rounded;
-        }
-        .btn-blue {
-          @apply bg-blue-500 text-white;
-        }
-        .btn-blue:hover {
-          @apply bg-blue-700;
-        }
-      `}</style> */}
     </div>
   );
 };

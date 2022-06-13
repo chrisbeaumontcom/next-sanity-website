@@ -26,32 +26,37 @@ const Detail = ({ artwork }) => {
         </title>
         <meta name="description" content="View this artwork" />
       </Head>
-      <div className="mb-5 p-2">
-        <h1 className="text-3xl font-bold py-3">{name}</h1>
-        <p>
-          {description}, {year}
-        </p>
-        {currentGallery.works && (
+      <div className="md:flex md:flex-row my-3">
+        <div className="basis-2/3 p-2">
+          <SanityImage sanityimg={image} size={800} />
+          {currentGallery.works && (
+            <NextAndPrevious
+              current={slug.current}
+              list={currentGallery.works}
+            />
+          )}
+        </div>
+        <div className="basis-1/3 mb-5 p-2">
+          <h1 className="text-2xl font-bold py-3">{name}</h1>
           <p>
-            <Link href={`/gallery/${currentGallery.slug}`}>
-              <a className="text-blue-600">{currentGallery.name}</a>
-            </Link>
+            {description}, {year}
           </p>
-        )}
-        {!currentGallery.works &&
-          galleries.map((gallery, i) => (
-            <p key={i}>
-              <Link href={`/gallery/${gallery.slug.current}`}>
-                <a className="text-blue-600">{gallery.name}</a>
+          {currentGallery.works && (
+            <p>
+              <Link href={`/gallery/${currentGallery.slug}`}>
+                <a className="text-blue-600">{currentGallery.name}</a>
               </Link>
             </p>
-          ))}
-        <div className="max-w-3xl">
-          <SanityImage sanityimg={image} size={800} />
+          )}
+          {!currentGallery.works &&
+            galleries.map((gallery, i) => (
+              <p key={i}>
+                <Link href={`/gallery/${gallery.slug.current}`}>
+                  <a className="text-blue-600">{gallery.name}</a>
+                </Link>
+              </p>
+            ))}
         </div>
-        {currentGallery.works && (
-          <NextAndPrevious current={slug.current} list={currentGallery.works} />
-        )}
       </div>
     </>
   );
