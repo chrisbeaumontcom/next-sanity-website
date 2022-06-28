@@ -1,26 +1,27 @@
-import '../styles/globals.css';
-import { GalleryProvider } from '../context/gallery';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Layout from '../components/layout/Layout';
-import * as gtag from '../gtag';
-import Script from 'next/script';
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { GalleryProvider } from "../context/gallery";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import Layout from "../components/layout/Layout";
+import * as gtag from "../gtag";
+import Script from "next/script";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const [currentPath, setCurrentPath] = useState('/');
+  const [currentPath, setCurrentPath] = useState("/");
   useEffect(() => {
     const handleRouteChange = (url) => {
       setCurrentPath(url);
-      if (process && process.env.NODE_ENV === 'development') {
-        console.log('Dev GA:', url);
+      if (process && process.env.NODE_ENV === "development") {
+        console.log("Dev GA:", url);
         return;
       }
       gtag.pageview(url);
     };
-    router.events.on('routeChangeComplete', handleRouteChange);
+    router.events.on("routeChangeComplete", handleRouteChange);
     return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
+      router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, [router.events]);
   return (

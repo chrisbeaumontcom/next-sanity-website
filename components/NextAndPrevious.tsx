@@ -1,8 +1,15 @@
+import React from 'react'
 import Link from 'next/link';
 //import Image from 'next/image';
 //import mag from '../public/img/mag.png';
 
-const NextAndPrevious = ({ current, list, url }) => {
+type Props = {
+  current?: string;
+  list?: string[];
+  url?: string;
+};
+
+const NextAndPrevious: React.FC<Props> = ({ current, list, url }) => {
   const { previous, next } = itemNav(current, list);
 
   return (
@@ -33,18 +40,27 @@ const NextAndPrevious = ({ current, list, url }) => {
   );
 };
 
-function itemNav(id, items) {
-  const obj = {};
+interface npObject {
+  previous: string;
+  next: string;
+}
+
+function itemNav(id: string, items: string[]): npObject {
+  let previous = "";
+  let next = "";
   for (var i = 0; i < items.length; i++) {
     if (items[i] === id) {
       const p = i === 0 ? items.length - 1 : i - 1;
-      obj.previous = items[p];
+      previous = items[p];
       const n = i === items.length - 1 ? 0 : i + 1;
-      obj.next = items[n];
+      next = items[n];
       break;
     }
   }
-  return obj;
+  return {
+    previous,
+    next
+  };
 }
 
 export default NextAndPrevious;

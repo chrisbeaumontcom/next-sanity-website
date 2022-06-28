@@ -1,43 +1,54 @@
-import client from '../client';
-import SanityImage from '../components/SanityImage';
-import Link from 'next/link';
-import groq from 'groq';
-import { PortableText } from '@portabletext/react';
+import React from "react";
+import { GetStaticProps } from "next";
+import client from "../client";
+import SanityImage from "../components/SanityImage";
+import Link from "next/link";
+import groq from "groq";
+import { PortableText } from "@portabletext/react";
+import type { PortableTextBlock } from "@portabletext/types";
 
 const ptComponents = {
   marks: {
-    e1a7e5c9a330: ({ children, value }) => {
-      if (typeof value === 'undefined') {
-        return;
-      }
+    e1a7e5c9a330: (props) => {
+      return <span></span>;
     },
-    internalLink: ({ children, value }) => {
-      if (typeof value.href === 'undefined') {
-        return;
+    internalLink: (props) => {
+      if (typeof props.value.href === "undefined") {
+        return <span></span>;
       }
       return (
-        <Link rel="internal" href={value.href}>
-          <a className="text-blue-600">{children[0]}</a>
+        <Link rel="internal" href={props.value.href}>
+          <a className="text-blue-600">{props.children[0]}</a>
         </Link>
       );
     },
-    link: ({ children, value }) => {
-      if (typeof value.href === 'undefined') {
-        return;
+    link: (props) => {
+      if (typeof props.value.href === "undefined") {
+        return <span></span>;
       }
-      const rel = !value.href.startsWith('/')
-        ? 'noreferrer noopener'
+      const rel = !props.value.href.startsWith("/")
+        ? "noreferrer noopener"
         : undefined;
       return (
-        <a href={value.href} rel={rel} className="text-blue-600">
-          {children}
+        <a href={props.value.href} rel={rel} className="text-blue-600">
+          {props.children}
         </a>
       );
     },
   },
 };
 
-export default function Home({ homeitems }) {
+interface Item {
+  title: string;
+  image: string;
+  content: PortableTextBlock;
+}
+
+type Props = {
+  homeitems: Item[];
+};
+
+export default function Home({ homeitems }: Props) {
   return (
     <div className="container p-3">
       <main>
@@ -68,12 +79,13 @@ export default function Home({ homeitems }) {
     </div>
   );
 }
+
 const query = groq`*[_type == "homeitem" && show == true] | order(order asc)`;
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const homeitems = await client.fetch(query);
   return {
     props: {
       homeitems,
     },
   };
-}
+};

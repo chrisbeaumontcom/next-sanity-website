@@ -1,9 +1,16 @@
-import groq from 'groq';
-import client from '../../client';
-import { PortableText } from '@portabletext/react';
-import Head from 'next/head';
-const Page = ({ post }) => {
-  const { name = '', content } = post;
+import { GetStaticProps, GetStaticPaths } from "next";
+import groq from "groq";
+import client from "../../client";
+import { PortableText } from "@portabletext/react";
+import type { Post } from "../../interfaces";
+import Head from "next/head";
+
+type Props = {
+  post: Post;
+};
+
+const Page = ({ post }: Props) => {
+  const { name = "", content } = post;
 
   return (
     <>
@@ -21,7 +28,7 @@ const Page = ({ post }) => {
   );
 };
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths = await client.fetch(
     `*[_type == "post" && defined(slug.current)][].slug.current`
   );
@@ -30,7 +37,7 @@ export async function getStaticPaths() {
     paths: paths.map((slug) => ({ params: { slug } })),
     fallback: false,
   };
-}
+};
 
 const query = groq`*[_type == "post" && slug.current == $slug][0]{
   _id,
@@ -38,9 +45,8 @@ const query = groq`*[_type == "post" && slug.current == $slug][0]{
   content
 }`;
 
-export async function getStaticProps(context) {
-  // It's important to default the slug so that it doesn't return "undefined"
-  const { slug = '' } = context.params;
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { slug = "" } = params;
   const post = await client.fetch(query, { slug });
 
   return {
@@ -48,6 +54,6 @@ export async function getStaticProps(context) {
       post,
     },
   };
-}
+};
 
 export default Page;

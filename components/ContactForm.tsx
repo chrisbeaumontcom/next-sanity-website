@@ -12,28 +12,31 @@ const ContactForm = () => {
     <>
       <p>{sendProcess}</p>
       <Formik
-        className="start"
-        initialValues={{
+        initialValues = {{
           Email: '',
           Name: '',
           Message: '',
           Phone: '',
           Address: '',
         }}
-        validate={(values) => {
-          let errors = {};
+        validate = {(values) => {
+          let Email = "";
+          let Name = ""
           const rgx =
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           if (!values.Email) {
-            errors.Email = 'Required';
+            Email = 'Required';
           } else if (!rgx.test(values.Email)) {
-            errors.Email = 'Invalid email address';
+            Email = 'Invalid email address';
           }
           if (!values.Name) {
-            errors.Name = 'Required';
+            Name = 'Required';
           }
 
-          return errors;
+          return {
+            Email,
+            Name
+          };
         }}
         onSubmit={(values, { setSubmitting }) => {
           hideForm('formhide');
@@ -103,18 +106,7 @@ const ContactForm = () => {
                   )}
                 </div>
               </div>
-              {/* <div className="form-group">
-                <span>Email *</span>
-                <input
-                  className="form-control"
-                  type="email"
-                  name="Email"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.Email}
-                />
-                {errors.Email && touched.Email && errors.Email}
-              </div> */}
+
               <div className="md:flex md:items-center my-3">
                 <div className="md:w-1/3">
                   <label
@@ -139,18 +131,7 @@ const ContactForm = () => {
                   )}
                 </div>
               </div>
-              {/* <div className="form-group">
-                <span>Name *</span>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="Name"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.Name}
-                />
-                {errors.Name && touched.Name && errors.Name}
-              </div> */}
+
               <div className="md:flex md:items-center my-3">
                 <div className="md:w-1/3">
                   <label
@@ -172,18 +153,6 @@ const ContactForm = () => {
                   />
                 </div>
               </div>
-
-              {/* <div className="form-group">
-                <span>Phone</span>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="Phone"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.Phone}
-                />
-              </div> */}
 
               <div className="md:flex md:items-center my-3">
                 <div className="md:w-1/3">
@@ -217,16 +186,6 @@ const ContactForm = () => {
                   </button>
                 </div>
               </div>
-              {/* <div>
-                <button
-                  className="btn btn-primary btn-sm subbut"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  Submit
-                </button>
-                <p>&nbsp;</p>
-              </div> */}
             </div>
           </form>
         )}

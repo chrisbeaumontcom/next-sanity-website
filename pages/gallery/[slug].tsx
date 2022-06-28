@@ -1,22 +1,28 @@
-import { useEffect } from 'react';
-import groq from 'groq';
-import client from '../../client';
-import Head from 'next/head';
-import Link from 'next/link';
-import SanityImage from '../../components/SanityImage';
-import { useGalleryContext } from '../../context/gallery';
+import { useEffect } from "react";
+import { GetStaticProps, GetStaticPaths } from "next";
+import { Gallery } from "../../interfaces";
+import groq from "groq";
+import client from "../../client";
+import Head from "next/head";
+import Link from "next/link";
+import SanityImage from "../../components/SanityImage";
+import { useGalleryContext } from "../../context/gallery";
 
-const Gallery = ({ gallery }) => {
-  const { name = '', description = '', slug, artworks } = gallery;
+type Props = {
+  gallery: Gallery;
+};
 
-  const [currentGallery, setCurrentGallery] = useGalleryContext();
+const Gallery = ({ gallery }: Props) => {
+  const { name = "", description = "", slug, artworks } = gallery;
+
+  const { setGallery } = useGalleryContext();
 
   useEffect(() => {
     const works = artworks.map((item) => {
       return item.slug.current;
     });
 
-    setCurrentGallery({
+    setGallery({
       name,
       slug: slug.current,
       works,
@@ -47,7 +53,11 @@ const Gallery = ({ gallery }) => {
               <div className="">
                 <Link href={{ pathname: `/detail/${item.slug.current}` }}>
                   <a>
-                    <SanityImage sanityimg={item.image} size={380} />
+                    <SanityImage
+                      sanityimg={item.image}
+                      size={380}
+                      altText={"Photo of " + item.name}
+                    />
                   </a>
                 </Link>
               </div>
@@ -65,8 +75,8 @@ const Gallery = ({ gallery }) => {
     </>
   );
 };
-
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
+  //export async function getStaticPaths() {
   const paths = await client.fetch(
     `*[_type == "gallery" && defined(slug.current)][].slug.current`
   );
@@ -75,7 +85,7 @@ export async function getStaticPaths() {
     paths: paths.map((slug) => ({ params: { slug } })),
     fallback: false,
   };
-}
+};
 
 const query = groq`*[_type == "gallery" && slug.current == $slug][0]{
   _id,
@@ -89,15 +99,16 @@ const query = groq`*[_type == "gallery" && slug.current == $slug][0]{
     image,}
 }`;
 
-export async function getStaticProps(context) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  //export async function getStaticProps(context) {
   // It's important to default the slug so that it doesn't return "undefined"
-  const { slug = '' } = context.params;
+  const { slug = "" } = params;
   const gallery = await client.fetch(query, { slug });
   return {
     props: {
       gallery,
     },
   };
-}
+};
 
 export default Gallery;

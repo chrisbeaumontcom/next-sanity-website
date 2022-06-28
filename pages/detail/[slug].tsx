@@ -1,22 +1,28 @@
-import groq from 'groq';
-import client from '../../client';
-import Link from 'next/link';
-import Head from 'next/head';
-import SanityImage from '../../components/SanityImage';
-import { useGalleryContext } from '../../context/gallery';
-import NextAndPrevious from '../../components/NextAndPrevious';
+import { GetStaticProps, GetStaticPaths } from "next";
+import { Artwork } from "../../interfaces";
+import groq from "groq";
+import client from "../../client";
+import Link from "next/link";
+import Head from "next/head";
+import SanityImage from "../../components/SanityImage";
+import { useGalleryContext } from "../../context/gallery";
+import NextAndPrevious from "../../components/NextAndPrevious";
 
-const Detail = ({ artwork }) => {
+type Props = {
+  artwork: Artwork;
+};
+
+const Detail = ({ artwork }: Props) => {
   const {
-    name = '',
-    description = '',
-    year = '',
+    name = "",
+    description = "",
+    year = "",
     slug,
     galleries,
     image,
   } = artwork;
 
-  const [currentGallery, setCurrentGallery] = useGalleryContext();
+  const { gallery } = useGalleryContext();
 
   return (
     <>
@@ -28,12 +34,13 @@ const Detail = ({ artwork }) => {
       </Head>
       <div className="md:flex md:flex-row my-3">
         <div className="basis-2/3 p-2">
-          <SanityImage sanityimg={image} size={800} />
-          {currentGallery.works && (
-            <NextAndPrevious
-              current={slug.current}
-              list={currentGallery.works}
-            />
+          <SanityImage
+            sanityimg={image}
+            size={800}
+            altText={"Photo of " + name}
+          />
+          {gallery.works && (
+            <NextAndPrevious current={slug.current} list={gallery.works} />
           )}
         </div>
         <div className="basis-1/3 mb-5 p-2">
@@ -41,15 +48,15 @@ const Detail = ({ artwork }) => {
           <p>
             {description}, {year}
           </p>
-          {currentGallery.works && (
+          {gallery.works && (
             <p>
-              <Link href={`/gallery/${currentGallery.slug}`}>
-                <a className="text-blue-600">{currentGallery.name}</a>
+              <Link href={`/gallery/${gallery.slug}`}>
+                <a className="text-blue-600">{gallery.name}</a>
               </Link>
             </p>
           )}
-          {!currentGallery.works &&
-            galleries.map((gallery, i) => (
+          {!gallery.works &&
+            galleries.map((gallery, i: number) => (
               <p key={i}>
                 <Link href={`/gallery/${gallery.slug.current}`}>
                   <a className="text-blue-600">{gallery.name}</a>
@@ -62,7 +69,7 @@ const Detail = ({ artwork }) => {
   );
 };
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths = await client.fetch(
     `*[_type == "artwork" && defined(slug.current)][].slug.current`
   );
@@ -70,7 +77,7 @@ export async function getStaticPaths() {
     paths: paths.map((slug) => ({ params: { slug } })),
     fallback: false,
   };
-}
+};
 
 const query = groq`*[_type == "artwork" && slug.current == $slug][0]{
   _id,
@@ -82,14 +89,14 @@ const query = groq`*[_type == "artwork" && slug.current == $slug][0]{
   "galleries": *[_type == "gallery" && references(^._id)][]{name,slug}
 }`;
 
-export async function getStaticProps(context) {
-  const { slug = '' } = context.params;
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { slug = "" } = params;
   const artwork = await client.fetch(query, { slug });
   return {
     props: {
       artwork,
     },
   };
-}
+};
 
 export default Detail;
