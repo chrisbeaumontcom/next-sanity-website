@@ -1,7 +1,7 @@
-import ContactForm from '../components/ContactForm';
-import Image from 'next/image';
-import Head from 'next/head';
-import pic from '../public/img/serge_photo_300x305.jpg';
+import { ContactForm } from "../components/ContactForm";
+import Image from "next/image";
+import Head from "next/head";
+import pic from "../public/img/serge_photo_300x305.jpg";
 
 export default function Page() {
   return (

@@ -24,4 +24,11 @@ export interface Post {
   name: string;
   content: PortableTextBlock;
 };
+
+export interface FormValues {
+  email: string;
+  fullname: string;
+  phone: string;
+  message: string;
+}
   

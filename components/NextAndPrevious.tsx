@@ -1,6 +1,5 @@
-import React from 'react'
-import Link from 'next/link';
-//import Image from 'next/image';
+import React from "react";
+import Link from "next/link";
 //import mag from '../public/img/mag.png';
 
 type Props = {
@@ -59,7 +58,7 @@ function itemNav(id: string, items: string[]): npObject {
   }
   return {
     previous,
-    next
+    next,
   };
 }
 
