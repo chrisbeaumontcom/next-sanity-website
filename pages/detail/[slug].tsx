@@ -22,7 +22,7 @@ const Detail = ({ artwork }: Props) => {
     image,
   } = artwork;
 
-  const { gallery } = useGalleryContext();
+  const context = useGalleryContext();
 
   return (
     <>
@@ -39,8 +39,11 @@ const Detail = ({ artwork }: Props) => {
             size={800}
             altText={"Photo of " + name}
           />
-          {gallery.works && (
-            <NextAndPrevious current={slug.current} list={gallery.works} />
+          {context && context.gallery && context.gallery.works && (
+            <NextAndPrevious
+              current={slug.current}
+              list={context.gallery.works}
+            />
           )}
         </div>
         <div className="basis-1/3 mb-5 p-2">
@@ -48,14 +51,14 @@ const Detail = ({ artwork }: Props) => {
           <p>
             {description}, {year}
           </p>
-          {gallery.works && (
+          {context && context.gallery && context.gallery.works && (
             <p>
-              <Link href={`/gallery/${gallery.slug}`}>
-                <a className="text-blue-600">{gallery.name}</a>
+              <Link href={`/gallery/${context.gallery.slug}`}>
+                <a className="text-blue-600">{context.gallery.name}</a>
               </Link>
             </p>
           )}
-          {!gallery.works &&
+          {!context?.gallery?.works &&
             galleries.map((gallery, i: number) => (
               <p key={i}>
                 <Link href={`/gallery/${gallery.slug.current}`}>
@@ -74,7 +77,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     `*[_type == "artwork" && defined(slug.current)][].slug.current`
   );
   return {
-    paths: paths.map((slug) => ({ params: { slug } })),
+    paths: paths.map((slug: string) => ({ params: { slug } })),
     fallback: false,
   };
 };
@@ -90,7 +93,7 @@ const query = groq`*[_type == "artwork" && slug.current == $slug][0]{
 }`;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { slug = "" } = params;
+  const slug = params ? params.slug : "";
   const artwork = await client.fetch(query, { slug });
   return {
     props: {

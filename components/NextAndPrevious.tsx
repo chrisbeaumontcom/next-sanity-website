@@ -8,7 +8,7 @@ type Props = {
   url?: string;
 };
 
-const NextAndPrevious: React.FC<Props> = ({ current, list, url }) => {
+const NextAndPrevious: React.FC<Props> = ({ current, list }) => {
   const { previous, next } = itemNav(current, list);
 
   return (
@@ -39,21 +39,26 @@ const NextAndPrevious: React.FC<Props> = ({ current, list, url }) => {
   );
 };
 
-interface npObject {
+type npObject = {
   previous: string;
   next: string;
-}
+};
 
-function itemNav(id: string, items: string[]): npObject {
+function itemNav(
+  id: string | undefined,
+  items: string[] | undefined
+): npObject {
   let previous = "";
   let next = "";
-  for (var i = 0; i < items.length; i++) {
-    if (items[i] === id) {
-      const p = i === 0 ? items.length - 1 : i - 1;
-      previous = items[p];
-      const n = i === items.length - 1 ? 0 : i + 1;
-      next = items[n];
-      break;
+  if (id && items) {
+    for (var i = 0; i < items.length; i++) {
+      if (items[i] === id) {
+        const p = i === 0 ? items.length - 1 : i - 1;
+        previous = items[p];
+        const n = i === items.length - 1 ? 0 : i + 1;
+        next = items[n];
+        break;
+      }
     }
   }
   return {

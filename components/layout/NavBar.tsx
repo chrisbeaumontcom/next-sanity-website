@@ -1,40 +1,40 @@
-import Link from 'next/link';
-import { useState } from 'react';
+import Link from "next/link";
+import { useState } from "react";
 
-export default function NavBar({ currentPath }) {
+export default function NavBar({ currentPath }: { currentPath: string }) {
   const links = [
-    { title: 'Selected Paintings', url: '/gallery/selected-paintings' },
+    { title: "Selected Paintings", url: "/gallery/selected-paintings" },
     {
-      title: 'Still Life with Variations',
-      url: '/gallery/still-life-with-variations',
+      title: "Still Life with Variations",
+      url: "/gallery/still-life-with-variations",
     },
-    { title: 'Print Shop', url: 'https://prints.chrisbeaumont.com/' },
-    { title: 'Curriculum Vitae', url: '/info/cv' },
-    { title: 'Contact', url: '/contact' },
+    { title: "Print Shop", url: "https://prints.chrisbeaumont.com/" },
+    { title: "Curriculum Vitae", url: "/info/cv" },
+    { title: "Contact", url: "/contact" },
   ];
 
-  const classname = 'nav-open';
-  const [navState, setNavState] = useState('');
+  const classname = "nav-open";
+  const [navState, setNavState] = useState("");
   const [burgerCheckboxState, setBurgerCheckboxState] = useState(false);
 
-  function handleNav(e) {
+  function handleNav(e: React.SyntheticEvent) {
     e.preventDefault();
-    if (navState === '') {
+    if (navState === "") {
       setBurgerCheckboxState(true);
       setNavState(classname);
     } else {
       setBurgerCheckboxState(false);
-      setNavState('');
+      setNavState("");
     }
   }
   function closeAllNav() {
     if (navState === classname) {
       setBurgerCheckboxState(false);
-      setNavState('');
+      setNavState("");
     }
   }
-  function linkActive(path, url) {
-    return path === url ? 'active' : '';
+  function linkActive(path: string, url: string) {
+    return path === url ? "active" : "";
   }
 
   return (

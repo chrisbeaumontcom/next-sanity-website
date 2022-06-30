@@ -1,9 +1,16 @@
-import Head from 'next/head';
-import Footer from './Footer';
-import NavBar from './NavBar';
-import Header from './Header';
+import { ReactNode } from "react";
+import Head from "next/head";
+import Footer from "./Footer";
+import NavBar from "./NavBar";
+import Header from "./Header";
 
-export default function Layout({ children, currentPath }) {
+const title = process.env.NEXT_PUBLIC_SITE_NAME || "";
+const subtitle = process.env.NEXT_PUBLIC_SITE_TAGLINE || "";
+type Props = {
+  children: ReactNode;
+  currentPath: string;
+};
+export default function Layout({ children, currentPath }: Props) {
   return (
     <div className="page-container">
       <Head>
@@ -12,10 +19,7 @@ export default function Layout({ children, currentPath }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div id="content-wrap">
-        <Header
-          title={process.env.NEXT_PUBLIC_SITE_NAME}
-          subtitle={process.env.NEXT_PUBLIC_SITE_TAGLINE}
-        />
+        <Header title={title} subtitle={subtitle} />
         <NavBar currentPath={currentPath} />
         <div className="container mx-auto  md:max-w-5xl">{children}</div>
       </div>

@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [currentPath, setCurrentPath] = useState("/");
   useEffect(() => {
-    const handleRouteChange = (url) => {
+    const handleRouteChange = (url: string) => {
       setCurrentPath(url);
       if (process && process.env.NODE_ENV === "development") {
         console.log("Dev GA:", url);

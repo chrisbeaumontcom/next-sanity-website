@@ -1,12 +1,17 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import headerPic from '../../public/img/layout/banner01zucchinis.jpg';
+import Link from "next/link";
+import Image from "next/image";
+import headerPic from "../../public/img/layout/banner01zucchinis.jpg";
 // import banner01 from '../../assets/img/layout/banner01zucchinis.jpg';
 // import banner02 from '../../assets/img/layout/banner02lemons.jpg';
 // import banner03 from '../../assets/img/layout/banner03artichokes.jpg';
 // import banner04 from '../../assets/img/layout/banner04cherries.jpg';
 
-export default function Header({ title, subtitle }) {
+type Props = {
+  title: string;
+  subtitle: string;
+};
+
+export default function Header({ title, subtitle }: Props) {
   // const isHome = title === 'Home';
   // let classList = 'col-lg-4 col-md-4 col-sm-6 col-xs-12 text-right carobox';
   // if (!isHome) {

@@ -3,26 +3,22 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 type Props = {
   children: ReactNode;
 };
-type CurrentGallery = {
+
+export type CurrentGallery = {
   name: string;
   slug: string;
   works?: string[];
-};
+} | null;
+
 type GalleryContextType = {
-  gallery: CurrentGallery;
+  gallery: CurrentGallery | null;
   setGallery: (gallery: CurrentGallery) => void;
 };
 
-const GalleryContext = createContext<GalleryContextType | null>(null);
+export const GalleryContext = createContext<GalleryContextType | null>(null);
 
 export const GalleryProvider: React.FC<Props> = ({ children }) => {
-  const initialGallery = {
-    name: "Selected Paintings",
-    slug: "selected-paintings",
-  };
-
-  const [currentGallery, setCurrentGallery] =
-    useState<CurrentGallery>(initialGallery);
+  const [currentGallery, setCurrentGallery] = useState<CurrentGallery>(null);
 
   return (
     <GalleryContext.Provider

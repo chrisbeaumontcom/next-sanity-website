@@ -15,18 +15,22 @@ type Props = {
 const Gallery = ({ gallery }: Props) => {
   const { name = "", description = "", slug, artworks } = gallery;
 
-  const { setGallery } = useGalleryContext();
+  const context = useGalleryContext();
 
   useEffect(() => {
-    const works = artworks.map((item) => {
-      return item.slug.current;
-    });
-
-    setGallery({
-      name,
-      slug: slug.current,
-      works,
-    });
+    let works: string[] = [];
+    if (artworks) {
+      works = artworks.map((item) => {
+        return item.slug.current;
+      });
+    }
+    if (context) {
+      context.setGallery({
+        name,
+        slug: slug.current,
+        works,
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -48,41 +52,41 @@ const Gallery = ({ gallery }: Props) => {
           <p>{description}</p>
         </div>
         <div className="md:grid md:grid-cols-3 gap-3">
-          {artworks.map((item, i) => (
-            <div key={i}>
-              <div className="">
-                <Link href={{ pathname: `/detail/${item.slug.current}` }}>
-                  <a>
-                    <SanityImage
-                      sanityimg={item.image}
-                      size={380}
-                      altText={"Photo of " + item.name}
-                    />
-                  </a>
-                </Link>
+          {artworks &&
+            artworks.map((item, i) => (
+              <div key={i}>
+                <div className="">
+                  <Link href={{ pathname: `/detail/${item.slug.current}` }}>
+                    <a>
+                      <SanityImage
+                        sanityimg={item.image}
+                        size={380}
+                        altText={"Photo of " + item.name}
+                      />
+                    </a>
+                  </Link>
+                </div>
+                <div className="py-2 text-xs">
+                  {item.name}
+                  <br />
+                  {item.description}
+                  <br />
+                  {item.year}
+                </div>
               </div>
-              <div className="py-2 text-xs">
-                {item.name}
-                <br />
-                {item.description}
-                <br />
-                {item.year}
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </>
   );
 };
 export const getStaticPaths: GetStaticPaths = async () => {
-  //export async function getStaticPaths() {
   const paths = await client.fetch(
     `*[_type == "gallery" && defined(slug.current)][].slug.current`
   );
 
   return {
-    paths: paths.map((slug) => ({ params: { slug } })),
+    paths: paths.map((slug: string) => ({ params: { slug } })),
     fallback: false,
   };
 };
@@ -100,9 +104,8 @@ const query = groq`*[_type == "gallery" && slug.current == $slug][0]{
 }`;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  //export async function getStaticProps(context) {
   // It's important to default the slug so that it doesn't return "undefined"
-  const { slug = "" } = params;
+  const slug = params ? params.slug : "";
   const gallery = await client.fetch(query, { slug });
   return {
     props: {

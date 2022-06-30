@@ -34,7 +34,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   );
 
   return {
-    paths: paths.map((slug) => ({ params: { slug } })),
+    paths: paths.map((slug: string) => ({ params: { slug } })),
     fallback: false,
   };
 };
@@ -46,7 +46,7 @@ const query = groq`*[_type == "post" && slug.current == $slug][0]{
 }`;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { slug = "" } = params;
+  const slug = params ? params.slug : "";
   const post = await client.fetch(query, { slug });
 
   return {
