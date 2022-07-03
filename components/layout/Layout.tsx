@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import Head from "next/head";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
@@ -7,7 +6,7 @@ import Header from "./Header";
 const title = process.env.NEXT_PUBLIC_SITE_NAME || "";
 const subtitle = process.env.NEXT_PUBLIC_SITE_TAGLINE || "";
 type Props = {
-  children: ReactNode;
+  children: React.ReactNode;
   currentPath: string;
 };
 export default function Layout({ children, currentPath }: Props) {

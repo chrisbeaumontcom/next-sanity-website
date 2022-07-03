@@ -42,7 +42,7 @@ const Gallery = ({ gallery }: Props) => {
         </title>
         <meta
           name="description"
-          content="View a list of artworks from this selection"
+          content={`This page shows a list of artworks for the ${name} site gallery.`}
         />
       </Head>
 
@@ -104,7 +104,6 @@ const query = groq`*[_type == "gallery" && slug.current == $slug][0]{
 }`;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  // It's important to default the slug so that it doesn't return "undefined"
   const slug = params ? params.slug : "";
   const gallery = await client.fetch(query, { slug });
   return {

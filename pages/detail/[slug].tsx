@@ -30,7 +30,10 @@ const Detail = ({ artwork }: Props) => {
         <title>
           {name} {year} - {process.env.NEXT_PUBLIC_SITE_NAME}
         </title>
-        <meta name="description" content="View this artwork" />
+        <meta
+          name="description"
+          content={`This page displays an image and details for the art work:  ${name}, ${year}`}
+        />
       </Head>
       <div className="md:flex md:flex-row my-3">
         <div className="basis-2/3 p-2">

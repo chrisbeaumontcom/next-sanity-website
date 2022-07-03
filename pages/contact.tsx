@@ -3,12 +3,12 @@ import Image from "next/image";
 import Head from "next/head";
 import pic from "../public/img/serge_photo_300x305.jpg";
 
-export default function Page() {
+export default function Contact() {
   return (
     <div className="container p-3">
       <Head>
         <title>Contact - {process.env.NEXT_PUBLIC_SITE_NAME}</title>
-        <meta name="description" content="Contact the artist" />
+        <meta name="description" content="Contact the artist with this page." />
       </Head>
       <main>
         <div className="mb-5 mx-auto">

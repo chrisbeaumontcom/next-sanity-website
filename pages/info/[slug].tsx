@@ -9,16 +9,20 @@ type Props = {
   post: Post;
 };
 
-const Page = ({ post }: Props) => {
+const InfoPage = ({ post }: Props) => {
   const { name = "", content } = post;
-
+  // Todo: add this field to Sanity
+  const description =
+    name === "Curriculum Vitae"
+      ? "This page shows a list of the artist's achievements over his career."
+      : "Details on this site's privacy concerns.";
   return (
     <>
       <Head>
         <title>
           {name} - {process.env.NEXT_PUBLIC_SITE_NAME}
         </title>
-        <meta name="description" content="Contact the artist" />
+        <meta name="description" content={description} />
       </Head>
       <div className="info mb-5 p-2">
         <h1 className="text-3xl font-bold py-3">{name}</h1>
@@ -56,4 +60,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-export default Page;
+export default InfoPage;

@@ -13,11 +13,6 @@ type Props = {
 
 export default function Header({ title, subtitle }: Props) {
   // const isHome = title === 'Home';
-  // let classList = 'col-lg-4 col-md-4 col-sm-6 col-xs-12 text-right carobox';
-  // if (!isHome) {
-  //   classList =
-  //     'col-lg-4 col-md-4 col-sm-6 col-xs-12 text-right d-none d-lg-block';
-  // }
 
   return (
     <div className="bg-black">

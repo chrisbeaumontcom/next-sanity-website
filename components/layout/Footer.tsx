@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import footerPic from '../../public/img/layout/banner02lemons.jpg';
-import socialPic from '../../public/img/soc-insta-30.png';
+import Link from "next/link";
+import Image from "next/image";
+import footerPic from "../../public/img/layout/banner02lemons.jpg";
+import socialPic from "../../public/img/soc-insta-30.png";
 
 const Footer = () => {
   return (
@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="bg-slate-700 text-white mt-4">
         <div className="container mx-auto  md:max-w-5xl md:flex md:flex-row text-sm">
           <div className="p-3 basis-1/4 hidden  lg:block">
-            <Link href={'/'}>
+            <Link href={"/"}>
               <a>
                 <Image src={footerPic} alt="Still life with Lemons" />
               </a>
@@ -40,7 +40,7 @@ const Footer = () => {
               <li>
                 Version: 3.0 June 2022
                 <br />
-                Next JS / Sanity CMS / Vercel / GitHub <br />
+                Next JS / Typescript / Sanity CMS / Vercel / GitHub <br />
               </li>
               <li>
                 <a href="http://instagram.com/chrisbeaumontcom">
