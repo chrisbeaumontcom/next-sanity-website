@@ -40,7 +40,7 @@ const Footer = () => {
               <li>
                 Version: 3.0 June 2022
                 <br />
-                Next JS / Typescript / Sanity CMS / Vercel / GitHub / Node v22
+                Next JS / Typescript / Sanity CMS / Vercel / GitHub / Node 22
                 <br />
               </li>
               <li>
