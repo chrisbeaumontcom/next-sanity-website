@@ -40,7 +40,8 @@ const Footer = () => {
               <li>
                 Version: 3.0 June 2022
                 <br />
-                Next JS / Typescript / Sanity CMS / Vercel / GitHub <br />
+                Next JS / Typescript / Sanity CMS / Vercel / GitHub / Node v22
+                <br />
               </li>
               <li>
                 <a href="http://instagram.com/chrisbeaumontcom">
