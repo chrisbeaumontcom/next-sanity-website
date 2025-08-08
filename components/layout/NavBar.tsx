@@ -55,7 +55,7 @@ export default function NavBar({ currentPath }: { currentPath: string }) {
               </Link>
             </div>
           ))}
-          <div className="hamburger-box">
+          <div className="hamburger-box" aria-hidden="true">
             <input
               type="checkbox"
               className="burger-checkbox visually-hidden"
