@@ -63,7 +63,7 @@ export const ContactForm = () => {
         })
         .catch((er) => {
           console.log(er);
-          sendForm("[error sending form...]");
+          sendForm("[Sorry, error sending the form...]");
           formik.setSubmitting(false);
         });
     },
